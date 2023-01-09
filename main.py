@@ -4,8 +4,12 @@ app = FastAPI()
 
 @app.get('/')
 def index():
-    return {'data' : {'name' : 'Hugo'}}
+    return 'hey'
 
-@app.get('/about')
-def about():
-    return {'data' : 'about page'}
+@app.get('/blog/unpublished')
+def unpublished():
+    return 'unpublished'
+
+@app.get("/blog/{id}")
+def show_blog(id):
+    return id
