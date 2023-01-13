@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -6,10 +7,11 @@ app = FastAPI()
 def index():
     return 'hey'
 
-@app.get('/blog/unpublished')
-def unpublished():
-    return 'unpublished'
+class Blog(BaseModel):
+    title: str
+    body: str
+    published: bool | None = None
 
-@app.get("/blog/{id}")
-def show_blog(id):
-    return id
+@app.post('/blog')
+def create_blog(blog: Blog):
+    return {'data'  : f"Blog is created with the title as {blog.title}"}
